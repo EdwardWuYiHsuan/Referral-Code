@@ -2,14 +2,14 @@
 Backend API for referral code
 
 <!-- API -->
-## Push deviceId and referral code
-`POST {server-url}/push_deviceid_and_referral_code`
+## Push email and referral code
+`POST {server-url}/push_email_and_referral_code`
 
 > Request
 
 ```json
 {
-    "device_id" : "String",
+    "email" : "String",
     "referral_code" : "String"
 }
 ```
@@ -35,12 +35,12 @@ None
 ### Parameters
 | Parameter              | Type   | Length | Value | Description |
 | ---------------------- | ------ | ------ | ----- | ----------- |
-| device_id              | STRING |        |       |             |
+| email                  | STRING |        |       |             |
 | referral_code          | STRING |        |       |             |
 
 
 ### Return Error
-- 10001 Invalid 'device_id'
+- 10001 Invalid 'email'
 - 10002 Invalid 'referral_code'
 - 10003 Failed to push data
 - 10004 Referral code not found
@@ -48,9 +48,9 @@ None
 
 
 <!-- API -->
-## Get referral code by deviceId
+## Get referral code by email
 
-`GET {server-url}/get_referral_code_by_deviceid/{device_id}`
+`GET {server-url}/get_referral_code_by_email/{email}`
 
 > Request
 
@@ -78,13 +78,58 @@ None
 ### URL Parameters
 | Parameter              | Type   | Length | Value | Description |
 | ---------------------- | ------ | ------ | ----- | ----------- |
-| device_id              | STRING |        |       |             |
+| email                  | STRING |        |       |             |
 
 ### Parameters
 None
 
 ### Return Error
-- 10001 Invalid 'device_id'
+- 10001 Invalid 'email'
+- 10002 Invalid 'referral_code'
+- 10003 Failed to push data
+- 10004 Referral code not found
+- 10005 Failed to connect to redis
+
+<!-- API -->
+## Get all emails
+
+`GET {server-url}/get_all_emails`
+
+> Request
+
+```json
+```
+
+> Response
+
+```json
+{
+    "code": "0",
+    "desc": "success",
+    "timestamp": "2021-06-07T18:39:57.214487Z",
+    "data": {
+        "emails": [
+            "Ole5@gmail.com",
+            "Lurline36@yahoo.com",
+            "Jerrold13@gmail.com"
+        ]
+    }
+}
+```
+
+### Header
+| Key          | Value            |
+| ------------ | ---------------- |
+| Content-Type | application/json |
+
+### URL Parameters
+None
+
+### Parameters
+None
+
+### Return Error
+- 10001 Invalid 'email'
 - 10002 Invalid 'referral_code'
 - 10003 Failed to push data
 - 10004 Referral code not found
