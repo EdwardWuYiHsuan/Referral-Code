@@ -1,19 +1,21 @@
 import datetime
-import redis
+from rediscluster import RedisCluster
 
 
-endpoint = "elasticache-savedeviceidandreferralcode.akto78.ng.0001.apne1.cache.amazonaws.com";
+redisPassword = "stupidpass"
+redisClusterNodes = [{"host": "127.0.0.1", "port": "7001"}, {"host": "127.0.0.1", "port": "7002"}, 
+					 {"host": "127.0.0.1", "port": "7003"}, {"host": "127.0.0.1", "port": "7004"}, 
+					 {"host": "127.0.0.1", "port": "7005"}, {"host": "127.0.0.1", "port": "7006"}]
 
 def lambda_handler(event, context):
 
 	timestamp = datetime.datetime.utcnow().isoformat() + 'Z';
 	
 	try:
-		redisClient = redis.StrictRedis(host=endpoint, port=6379, db=0, socket_timeout=1);
-		emails = redisClient.keys();  #keys = <class 'list'>
-		
-		# redisClient.flushdb();  # Delete all keys in the current database.
-	except: 
+		redisCluster = RedisCluster(startup_nodes=redisClusterNodes, decode_responses=True, skip_full_coverage_check=True, password=redisPassword);
+		emails = redisCluster.keys();  #keys = <class 'list'>
+	except Exception as e:
+		print("[Error] Failed to connect to redis : {}".format(e));
 		return {
 			"code" : "0005",
 			"desc" : "Failed to connect to redis",
