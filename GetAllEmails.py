@@ -17,7 +17,7 @@ def lambda_handler(event, context):
 	except Exception as e:
 		print("[Error] Failed to connect to redis : {}".format(e));
 		return {
-			"code" : "0005",
+			"code" : "79005",
 			"desc" : "Failed to connect to redis",
 			"timestamp" : timestamp
 		}

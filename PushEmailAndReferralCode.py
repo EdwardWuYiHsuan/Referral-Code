@@ -15,7 +15,7 @@ def lambda_handler(event, context):
 	email = event.get("email");
 	if email is None:
 		return {
-			"code": "0001",
+			"code": "79001",
 			"desc" : "Invalid 'email'",
 			"timestamp" : timestamp
 		}
@@ -23,7 +23,7 @@ def lambda_handler(event, context):
 	referralCode = event.get("referral_code");
 	if referralCode is None:
 		return {
-			"code": "0002",
+			"code": "79002",
 			"desc" : "Invalid 'referral_code'",
 			"timestamp" : timestamp
 		}
@@ -34,7 +34,7 @@ def lambda_handler(event, context):
 	except Exception as e:
 		print("[Error] Failed to connect to redis : {}".format(e));
 		return {
-			"code" : "0005",
+			"code" : "79005",
 			"desc" : "Failed to connect to redis",
 			"timestamp" : timestamp
 		}
@@ -42,7 +42,7 @@ def lambda_handler(event, context):
 	print("[Info] Push data result : {}".format(result));
 	if not result:
 		return {
-			"code": "0003",
+			"code": "79003",
 			"desc" : "Failed to push data",
 			"timestamp" : timestamp
 		}

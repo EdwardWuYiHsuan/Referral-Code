@@ -14,7 +14,7 @@ def lambda_handler(event, context):
 	email = event.get("email");
 	if email is None:
 		return {
-			"code" : "0001",
+			"code" : "79001",
 			"desc" : "Invalid 'email'",
 			"timestamp" : timestamp
 		}
@@ -24,14 +24,14 @@ def lambda_handler(event, context):
 		referralCode = redisCluster.get(email);
 		if referralCode is None:
 			return {
-				"code" : "0004",
+				"code" : "79004",
 				"desc" : "Referral code not found",
 				"timestamp" : timestamp
 			}
 	except Exception as e:
 		print("[Error] Failed to connect to redis : {}".format(e));
 		return {
-			"code" : "0005",
+			"code" : "79005",
 			"desc" : "Failed to connect to redis",
 			"timestamp" : timestamp
 		}
